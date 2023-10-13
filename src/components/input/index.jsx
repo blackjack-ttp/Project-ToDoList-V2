@@ -1,11 +1,19 @@
 //* SCSS
 import '@/styles/components/input/style.scss';
 
-const Input = ({ value, type, placeholder }) => {
+const Input = ({ title, id, value, name, type, placeholder, onChange }) => {
   return (
     <>
-      <span className="title">{value}</span>
-      <input className="input" type={type} placeholder={placeholder} />
+      <span className="title">{title}</span>
+      <input
+        className="input"
+        id={id}
+        type={type}
+        name={name}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+      />
     </>
   );
 };

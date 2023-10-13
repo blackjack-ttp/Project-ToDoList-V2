@@ -1,10 +1,12 @@
 //* SCSS
 import '@/styles/components/button/style.scss';
 
-const ButtonComponent = ({ value }) => {
+const ButtonComponent = ({ value, onClick }) => {
   return (
     <>
-      <button className="btn">{value}</button>
+      <button className="btn" onClick={onClick}>
+        {value}
+      </button>
     </>
   );
 };

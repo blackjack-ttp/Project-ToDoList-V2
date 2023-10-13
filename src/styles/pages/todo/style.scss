@@ -4,4 +4,8 @@
     text-align: center;
     background-color: var(--primary-color);
     margin-top: 20px;
+
+    &__input {
+        display: flex;
+    }
 }
