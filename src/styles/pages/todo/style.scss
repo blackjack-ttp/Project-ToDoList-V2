@@ -1,11 +1,121 @@
 .todo-wrapper {
     width: 80%;
-    padding: 2rem;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    position: relative;
     background-color: var(--primary-color);
+    text-align: center;
     margin-top: 20px;
 
     &__input {
+        position: relative;
         display: flex;
+        justify-content: center;
+        padding: 2rem;
+        margin: 2rem;
+        border-bottom: 2px solid var(--text-icon-color);
+
+        &__lable-title {
+            margin-top: 14px;
+            margin-right: 20px;
+            font-weight: 500;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            color: var(--text-icon-color);
+        }
+
+        &__title,
+        &__description {
+            width: 500px;
+            padding: 10px;
+            border: 1.5px solid var(--light-primary-color);
+            border-radius: 10px;
+            margin-right: 10px;
+        }
+        &__title,
+        &__description[type="text"] {
+            box-sizing: border-box;
+        }
+
+        &__btn-add {
+            cursor: pointer;
+            padding: 10px 40px;
+            font-size: 2rem;
+            background: transparent;
+            color: var(--text-icon-color);
+            border: 1.5px solid var(--light-primary-color);
+            border-radius: 10px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        &__btn-add:hover {
+            background: var(--text-icon-color);
+            color: var(--primary-color);
+        }
+    }
+
+    &__listTodo {
+        width: 100%;
+
+        &__item {
+            display: flex;
+            position: relative;
+            padding: 20px;
+            margin: 20px;
+            border-bottom: 1px solid var(--accent-collor);
+
+            &__content {
+                width: 70%;
+                text-align: left;
+                margin-left: 20px;
+                position: relative;
+
+                &__task {
+                    font-weight: 500;
+                    font-size: 2rem;
+                    text-transform: uppercase;
+                    color: var(--text-icon-color);
+                    margin-bottom: 10px;
+                }
+
+                &__description {
+                    font-weight: 500;
+                    font-size: 1.7rem;
+                    color: var(--secondary-text-color);
+                }
+            }
+
+            &__button {
+                width: 30%;
+                text-align: center;
+
+                &__btn-edit,
+                &__btn-remove {
+                    cursor: pointer;
+                    padding: 10px 20px;
+                    font-weight: 700;
+                    font-size: 1.5rem;
+                    background: transparent;
+                    color: var(--text-icon-color);
+                    border: 1px solid var(--light-primary-color);
+                    border-radius: 10px;
+                    text-transform: uppercase;
+                }
+
+                &__btn-edit {
+                    margin-right: 10px;
+                }
+
+                &__btn-edit:hover {
+                    background: #ffefd5;
+                    color: var(--primary-text-color);
+                }
+                &__btn-remove:hover {
+                    background: #f27171;
+                    color: var(--primary-text-color);
+                }
+            }
+        }
     }
 }

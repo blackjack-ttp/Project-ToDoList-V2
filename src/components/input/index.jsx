@@ -1,7 +1,6 @@
-const Input = ({ className, title, id, value, name, type, placeholder, onChange }) => {
+const Input = ({ className, id, value, name, type, placeholder, onChange }) => {
   return (
     <>
-      <span className={title}>{title}</span>
       <input
         className={className}
         id={id}
