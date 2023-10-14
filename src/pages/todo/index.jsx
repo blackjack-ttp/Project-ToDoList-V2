@@ -77,8 +77,8 @@ const ToDo = () => {
         {state?.todos.map((item) => {
           return (
             <>
-              <ul key={item.id} className="todo-wrapper__listTodo">
-                <li className="todo-wrapper__listTodo__item">
+              <ul className="todo-wrapper__listTodo">
+                <li key={item.id} className="todo-wrapper__listTodo__item">
                   <div className="todo-wrapper__listTodo__item__content">
                     <h3 className="todo-wrapper__listTodo__item__content__task">
                       TASK NAME: {item.task}
