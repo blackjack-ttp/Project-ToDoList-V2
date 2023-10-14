@@ -1,14 +1,15 @@
 //* LIB
-import { useReducer, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 //* IMPORT
 import { ButtonComponent, InputComponent } from '@/imports/component';
 
 //* STORE
 import todoReducer, { initState } from '@/store/reducer';
-import { addTodoAction, removeItemTodoAction } from '@/store/action';
+import { addTodoAction, getTodoAction, removeItemTodoAction } from '@/store/action';
 
 //* SCSS
 import '@/styles/pages/todo/style.scss';
+import { GetLocalStorage } from '@/utils/LocalStorage';
 
 const ToDo = () => {
   const [form, setForm] = useState({
@@ -42,6 +43,11 @@ const ToDo = () => {
       task_description: '',
     });
   };
+
+  useEffect(() => {
+    dispatch(getTodoAction(state));
+    // GetLocalStorage('todos');
+  }, []);
   return (
     <>
       <div className="todo-wrapper">

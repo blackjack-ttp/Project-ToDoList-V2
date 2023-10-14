@@ -25,3 +25,10 @@ export const clearTodoAction = (index) => {
     payload: index,
   };
 };
+
+export const getTodoAction = (data) => {
+  return {
+    type: types.GET_ITEM_TODO,
+    payload: data,
+  };
+};
