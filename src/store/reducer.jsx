@@ -20,6 +20,7 @@ const todoReducer = (state, action) => {
           description: action.payload.task_description,
         },
       ];
+
       return {
         ...state,
         todos: newTodo,

@@ -1,10 +1,7 @@
-//* SCSS
-import '@/styles/components/button/style.scss';
-
-const ButtonComponent = ({ value, onClick }) => {
+const ButtonComponent = ({ className, value, onClick }) => {
   return (
     <>
-      <button className="btn" onClick={onClick}>
+      <button className={className} onClick={onClick}>
         {value}
       </button>
     </>
