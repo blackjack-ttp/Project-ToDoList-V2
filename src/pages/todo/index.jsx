@@ -17,9 +17,12 @@ import '@/styles/pages/todo/style.scss';
 
 const ToDo = () => {
   const [form, setForm] = useState({
-    task_title: '',
-    task_description: '',
+    id: '',
+    task: '',
+    description: '',
   });
+
+  const [edit, setEdit] = useState(false);
 
   // used useReducer
   const [state, dispatch] = useReducer(todoReducer, initState);
@@ -37,16 +40,30 @@ const ToDo = () => {
     handleClearInput();
   };
 
-  const handleEditTodo = (id) => {
+  const hendleGetItemEdit = (id) => {
     const todoToEdit = state.todos.find((todo) => todo.id === id);
-    console.info(todoToEdit, 'e=========');
-    if (todoToEdit) {
-      setForm({
-        task_title: todoToEdit.task_title,
-        task_description: todoToEdit.task_description,
-      });
+    setEdit(!edit);
+    setForm({
+      id: todoToEdit.id,
+      task: todoToEdit.task,
+      description: todoToEdit.description,
+    });
+    return todoToEdit;
+  };
+
+  const handleEditTodo = (e) => {
+    e.preventDefault();
+
+    const todoToEdit = state.todos.find((todo) => todo.id === form.id);
+
+    if (!todoToEdit) {
+      console.error('Todo not found');
+      return;
     }
-    // dispatch(editItemTodoAction(id));
+
+    dispatch(editItemTodoAction(todoToEdit.id, form));
+    handleClearInput();
+    setEdit(false);
   };
 
   const handleDeleteTodo = (id) => {
@@ -55,8 +72,9 @@ const ToDo = () => {
 
   const handleClearInput = () => {
     setForm({
-      task_title: '',
-      task_description: '',
+      id: '',
+      task: '',
+      description: '',
     });
   };
 
@@ -66,38 +84,71 @@ const ToDo = () => {
   return (
     <>
       <div className="todo-wrapper">
-        <form onSubmit={handleAddTodo} className="todo-wrapper__input">
-          <label htmlFor="task_title" className="todo-wrapper__input__lable-title">
-            Task
-          </label>
-          <InputComponent
-            className="todo-wrapper__input__title"
-            title="Task Title"
-            id="task_title"
-            type="text"
-            name="task_title"
-            value={form.task_title}
-            autoFocus="true"
-            onChange={handleChange}
-            placeholder="Enter title task"
-          />
-          <label htmlFor="task_description" className="todo-wrapper__input__lable-title">
-            Description
-          </label>
-          <InputComponent
-            className="todo-wrapper__input__description"
-            title="Task Description"
-            id="task_description"
-            type="text"
-            name="task_description"
-            value={form.task_description}
-            onChange={handleChange}
-            placeholder="Enter description task"
-          />
-          <ButtonComponent className="todo-wrapper__input__btn-add" value="Add" />
-        </form>
+        {edit ? (
+          <form onSubmit={handleEditTodo} className="todo-wrapper__input">
+            <label htmlFor="task" className="todo-wrapper__input__lable-title">
+              Task
+            </label>
+            <InputComponent
+              className="todo-wrapper__input__title"
+              title="Task Title"
+              id="task"
+              type="text"
+              name="task"
+              value={form.task}
+              autoFocus="true"
+              onChange={handleChange}
+              placeholder="Enter title task"
+            />
+            <label htmlFor="description" className="todo-wrapper__input__lable-title">
+              Description
+            </label>
+            <InputComponent
+              className="todo-wrapper__input__description"
+              title="Task Description"
+              id="description"
+              type="text"
+              name="description"
+              value={form.description}
+              onChange={handleChange}
+              placeholder="Enter description task"
+            />
+            <ButtonComponent className="todo-wrapper__input__btn-add" value="save" />
+          </form>
+        ) : (
+          <form onSubmit={handleAddTodo} className="todo-wrapper__input">
+            <label htmlFor="task" className="todo-wrapper__input__lable-title">
+              Task
+            </label>
+            <InputComponent
+              className="todo-wrapper__input__title"
+              title="Task Title"
+              id="task"
+              type="text"
+              name="task"
+              value={form.task}
+              autoFocus="true"
+              onChange={handleChange}
+              placeholder="Enter title task"
+            />
+            <label htmlFor="description" className="todo-wrapper__input__lable-title">
+              Description
+            </label>
+            <InputComponent
+              className="todo-wrapper__input__description"
+              title="Task Description"
+              id="description"
+              type="text"
+              name="description"
+              value={form.description}
+              onChange={handleChange}
+              placeholder="Enter description task"
+            />
+            <ButtonComponent className="todo-wrapper__input__btn-add" value="add" />
+          </form>
+        )}
+
         {state?.todos.map((item) => {
-          console.info(item.id, 'item-id =============');
           return (
             <>
               <ul className="todo-wrapper__listTodo">
@@ -114,7 +165,7 @@ const ToDo = () => {
                     <ButtonComponent
                       className="todo-wrapper__listTodo__item__button__btn-edit"
                       value="Edit"
-                      onClick={() => handleEditTodo(item.id)}
+                      onClick={() => hendleGetItemEdit(item.id)}
                     />
                     <ButtonComponent
                       className="todo-wrapper__listTodo__item__button__btn-remove"

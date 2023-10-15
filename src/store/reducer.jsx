@@ -19,8 +19,8 @@ const todoReducer = (state, action) => {
         ...state.todos,
         {
           id: uuid(),
-          task: action.payload.task_title,
-          description: action.payload.task_description,
+          task: action.payload.task,
+          description: action.payload.description,
         },
       ];
       SetLocalStorage('todos', newTodo);
@@ -39,11 +39,13 @@ const todoReducer = (state, action) => {
 
     case types.EDIT_TODO:
       const updatedTodos = state.todos.map((todo) => {
-        if (todo.id === action.payload) {
+        console.info(action.payload, '========action payload ============');
+        console.info(action.payload.index, '========edit reducer =======id=====');
+        if (todo.id === action.payload.index) {
           return {
             ...todo,
-            task: action.payload.task_title,
-            description: action.payload.task_description,
+            task: action.payload.data.task,
+            description: action.payload.data.description,
           };
         }
         return todo;

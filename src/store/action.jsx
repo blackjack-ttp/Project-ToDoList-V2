@@ -7,10 +7,10 @@ export const addTodoAction = (data) => {
     payload: data,
   };
 };
-export const editItemTodoAction = (index) => {
+export const editItemTodoAction = (index, data) => {
   return {
     type: types.EDIT_TODO,
-    payload: index,
+    payload: { index, data },
   };
 };
 export const removeItemTodoAction = (index) => {
