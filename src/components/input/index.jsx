@@ -1,4 +1,4 @@
-const Input = ({ className, id, value, name, type, placeholder, onChange }) => {
+const Input = ({ className, id, value, name, type, placeholder, onChange, autoFocus }) => {
   return (
     <>
       <input
@@ -7,6 +7,7 @@ const Input = ({ className, id, value, name, type, placeholder, onChange }) => {
         type={type}
         name={name}
         value={value}
+        autoFocus={autoFocus}
         onChange={onChange}
         placeholder={placeholder}
       />

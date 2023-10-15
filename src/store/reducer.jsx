@@ -32,24 +32,27 @@ const todoReducer = (state, action) => {
 
     case types.GET_ITEM_TODO:
       const Items = GetLocalStorage('todos');
-      console.info(Items);
       return {
         ...state,
         todos: Items,
       };
 
     case types.EDIT_TODO:
-      const filterTodoByEditTodo = state.todos.filter((todo) => {
-        if (todo.id !== action.payload) {
-          todo.task != action.payload.task_title;
-          todo.description != action.payload.task_description;
+      const updatedTodos = state.todos.map((todo) => {
+        if (todo.id === action.payload) {
+          return {
+            ...todo,
+            task: action.payload.task_title,
+            description: action.payload.task_description,
+          };
         }
+        return todo;
       });
-      SetLocalStorage('todos', filterTodoByEditTodo);
+      SetLocalStorage('todos', updatedTodos);
 
       return {
         ...state,
-        todos: filterTodoByEditTodo,
+        todos: updatedTodos,
       };
 
     case types.REMOVE_ITEM_TODO:

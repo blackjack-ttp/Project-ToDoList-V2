@@ -5,11 +5,15 @@ import { ButtonComponent, InputComponent } from '@/imports/component';
 
 //* STORE
 import todoReducer, { initState } from '@/store/reducer';
-import { addTodoAction, getTodoAction, removeItemTodoAction } from '@/store/action';
+import {
+  addTodoAction,
+  getTodoAction,
+  removeItemTodoAction,
+  editItemTodoAction,
+} from '@/store/action';
 
 //* SCSS
 import '@/styles/pages/todo/style.scss';
-import { GetLocalStorage } from '@/utils/LocalStorage';
 
 const ToDo = () => {
   const [form, setForm] = useState({
@@ -33,6 +37,18 @@ const ToDo = () => {
     handleClearInput();
   };
 
+  const handleEditTodo = (id) => {
+    const todoToEdit = state.todos.find((todo) => todo.id === id);
+    console.info(todoToEdit, 'e=========');
+    if (todoToEdit) {
+      setForm({
+        task_title: todoToEdit.task_title,
+        task_description: todoToEdit.task_description,
+      });
+    }
+    // dispatch(editItemTodoAction(id));
+  };
+
   const handleDeleteTodo = (id) => {
     dispatch(removeItemTodoAction(id));
   };
@@ -46,7 +62,6 @@ const ToDo = () => {
 
   useEffect(() => {
     dispatch(getTodoAction(state));
-    // GetLocalStorage('todos');
   }, []);
   return (
     <>
@@ -62,6 +77,7 @@ const ToDo = () => {
             type="text"
             name="task_title"
             value={form.task_title}
+            autoFocus="true"
             onChange={handleChange}
             placeholder="Enter title task"
           />
@@ -81,6 +97,7 @@ const ToDo = () => {
           <ButtonComponent className="todo-wrapper__input__btn-add" value="Add" />
         </form>
         {state?.todos.map((item) => {
+          console.info(item.id, 'item-id =============');
           return (
             <>
               <ul className="todo-wrapper__listTodo">
@@ -97,6 +114,7 @@ const ToDo = () => {
                     <ButtonComponent
                       className="todo-wrapper__listTodo__item__button__btn-edit"
                       value="Edit"
+                      onClick={() => handleEditTodo(item.id)}
                     />
                     <ButtonComponent
                       className="todo-wrapper__listTodo__item__button__btn-remove"

@@ -9,7 +9,7 @@ export const addTodoAction = (data) => {
 };
 export const editItemTodoAction = (index) => {
   return {
-    type: types.REMOVE_ITEM_TODO,
+    type: types.EDIT_TODO,
     payload: index,
   };
 };
